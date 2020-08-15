@@ -1,8 +1,11 @@
 import React from "react"
 import { AnimatePresence, motion } from "framer-motion"
+
 import { Card, CardGrid, Container, Header } from "./Elements"
 import "./App.css"
 import Menu from "./Menu"
+import { Modal } from "./Modal"
+
 import blue from "./blue.png"
 import purp from "./purp.png"
 import black from "./black.png"
@@ -10,9 +13,15 @@ import green from "./green.png"
 
 function App() {
   const [value, setValue] = React.useState(0)
-  const [show, setOpacity] = React.useState(false)
+  const [show, toggle] = React.useState(false)
   return (
     <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
+      <Modal show={show} onClose={() => toggle(false)}>
+        <Card style={{ background: "var(--green)" }}>
+          <h3>Some card</h3>
+          <img src={green} />
+        </Card>
+      </Modal>
       <Header>
         <Menu />
         <h1>Header</h1>
@@ -38,11 +47,7 @@ function App() {
           onChange={(evt) => setValue(evt.currentTarget.value)}
           value={value}
         />
-        <button
-          onClick={() => setOpacity((prevShow) => (prevShow ? false : true))}
-        >
-          Set Opacity
-        </button>
+        <button onClick={() => toggle(true)}>Set Opacity</button>
         <CardGrid>
           <Card style={{ background: "var(--purp)" }}>
             <h3>Some card</h3>
@@ -55,10 +60,6 @@ function App() {
           <Card style={{ background: "var(--black)" }}>
             <h3>Some card</h3>
             <img src={black} />
-          </Card>
-          <Card style={{ background: "var(--green)" }}>
-            <h3>Some card</h3>
-            <img src={green} />
           </Card>
         </CardGrid>
       </Container>

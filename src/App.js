@@ -16,7 +16,14 @@ function App() {
   const [value, setValue] = React.useState(0)
   const [show, toggle] = React.useState(false)
   return (
-    <motion.div animate={{ opacity: [0.5, 1, 0, 1] }}>
+    <motion.div
+      initial={{
+        opacity: 0,
+      }}
+      animate={{
+        opacity: 1,
+      }}
+    >
       <Modal show={show} onClose={() => toggle(false)}>
         <Card style={{ background: "var(--green)" }}>
           <h3>Some card</h3>

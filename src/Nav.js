@@ -7,8 +7,17 @@ const variants = {
   close: {
     x: "-100%",
     transition: {
-      delay: 0.2,
+      delay: 0.5,
     },
+  },
+}
+
+const ulVariants = {
+  open: {
+    transition: { staggerChildren: 0.07, delayChildren: 0.2 },
+  },
+  close: {
+    transition: { staggerChildren: 0.05, staggerDirection: -1 },
   },
 }
 
@@ -16,12 +25,8 @@ const linkVariants = {
   open: {
     y: 0,
     opacity: 1,
-    transition: {
-      delay: 0.2,
-    },
   },
-  close: { y: -20, opacity: 0 },
-  delay: 1,
+  close: { y: 50, opacity: 0 },
 }
 
 const links = ["one", "two", "three", "four"]
@@ -35,13 +40,13 @@ export function Nav({ isNavOpen, setIsNavOpen }) {
       transition={{ damping: 300 }}
     >
       <button onClick={() => setIsNavOpen(false)}>Close</button>
-      <ul>
+      <motion.ul variants={ulVariants}>
         {links.map((link) => (
           <motion.li variants={linkVariants} key={link}>
             <a href="#">{link}</a>
           </motion.li>
         ))}
-      </ul>
+      </motion.ul>
     </MenuNav>
   )
 }

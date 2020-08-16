@@ -1,5 +1,5 @@
 import React from "react"
-import { AnimatePresence, motion } from "framer-motion"
+import { motion, useMotionValue, useTransform } from "framer-motion"
 
 import { Card, CardGrid, Container, Header } from "./Elements"
 import "./App.css"
@@ -18,6 +18,9 @@ function App() {
   const [show, toggle] = React.useState(false)
 
   const [isNavOpen, setIsNavOpen] = React.useState(false)
+
+  const d = useMotionValue(0)
+  const opacity = useTransform(d, [-200, 0, 200], [0, 1, 0])
 
   return (
     <motion.div
@@ -55,17 +58,38 @@ function App() {
 
         <CardGrid>
           <Card
-            whileHover={{ scale: 1.02 }}
+            drag
+            dragConstraints={{
+              top: -100,
+              left: -100,
+              bottom: 100,
+              right: 100,
+            }}
             style={{ background: "var(--purp)" }}
           >
             <h3>Some card</h3>
             <img alt="card" src={purp} />
           </Card>
-          <Card style={{ background: "var(--blue)" }}>
+          <Card
+            dragConstraints={{
+              left: 0,
+              right: 0,
+            }}
+            drag="x"
+            style={{ background: "var(--blue)" }}
+          >
             <h3>Some card</h3>
             <img alt="card" src={blue} />
           </Card>
-          <Card style={{ background: "var(--black)" }}>
+          <Card
+            dragConstraints={{
+              left: 0,
+              right: 0,
+            }}
+            drag="x"
+            x={d}
+            style={{ background: "var(--black)", opacity }}
+          >
             <h3>Some card</h3>
             <img alt="card" src={black} />
           </Card>

@@ -40,6 +40,7 @@ export const Card = styled(motion.div)`
   }
   img {
     width: 100%;
+    pointer-events: none;
   }
 `
 

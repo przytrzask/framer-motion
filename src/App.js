@@ -16,9 +16,7 @@ function App() {
   const [value, setValue] = React.useState(0)
   const [show, toggle] = React.useState(false)
   return (
-    <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
-      <Accordion />
-
+    <motion.div animate={{ opacity: [0.5, 1, 0, 1] }}>
       <Modal show={show} onClose={() => toggle(false)}>
         <Card style={{ background: "var(--green)" }}>
           <h3>Some card</h3>
@@ -29,13 +27,11 @@ function App() {
         <Menu />
         <h1>Header</h1>
       </Header>
+      <Accordion />
       <Container>
         <AnimatePresence exit="">
           {show && (
             <motion.h2
-              initial={{
-                opacity: 0,
-              }}
               animate={{ opacity: 1, x: Number(value) }}
               exit={{ opacity: 0 }}
             >

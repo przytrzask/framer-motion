@@ -1,5 +1,10 @@
 import React from "react"
-import { motion, useMotionValue, useTransform } from "framer-motion"
+import {
+  motion,
+  useMotionValue,
+  useTransform,
+  AnimatePresence,
+} from "framer-motion"
 
 import { Card, CardGrid, Container, Header } from "./Elements"
 import "./App.css"
@@ -16,11 +21,12 @@ import green from "./green.png"
 function App() {
   const [value, setValue] = React.useState(0)
   const [show, toggle] = React.useState(false)
+  const [isCardDeleted, deleteCard] = React.useState(false)
 
   const [isNavOpen, setIsNavOpen] = React.useState(false)
 
-  const d = useMotionValue(0)
-  const opacity = useTransform(d, [-200, 0, 200], [0, 1, 0])
+  const x = useMotionValue(0)
+  const opacity = useTransform(x, [-200, 0, 200], [0, 1, 0])
 
   return (
     <motion.div
@@ -70,25 +76,43 @@ function App() {
             <h3>Some card</h3>
             <img alt="card" src={purp} />
           </Card>
+          <AnimatePresence>
+            {!isCardDeleted && (
+              <motion.div
+                exit={{ height: 0, overflow: "hiden", opacity: 0 }}
+                transition={{
+                  opacity: {
+                    duration: 0,
+                  },
+                }}
+              >
+                <Card
+                  dragConstraints={{
+                    left: 0,
+                    right: 0,
+                  }}
+                  onDragEnd={(_, info) => {
+                    if (Math.abs(info.offset.x) > 200) {
+                      deleteCard(true)
+                    }
+                  }}
+                  drag="x"
+                  style={{ x, opacity, background: "var(--blue)" }}
+                >
+                  <h3>Some card</h3>
+                  <img alt="card" src={blue} />
+                </Card>
+              </motion.div>
+            )}
+          </AnimatePresence>
+
           <Card
             dragConstraints={{
               left: 0,
               right: 0,
             }}
             drag="x"
-            style={{ background: "var(--blue)" }}
-          >
-            <h3>Some card</h3>
-            <img alt="card" src={blue} />
-          </Card>
-          <Card
-            dragConstraints={{
-              left: 0,
-              right: 0,
-            }}
-            drag="x"
-            x={d}
-            style={{ background: "var(--black)", opacity }}
+            style={{ background: "var(--black)" }}
           >
             <h3>Some card</h3>
             <img alt="card" src={black} />

@@ -5,6 +5,7 @@ import { Card, CardGrid, Container, Header } from "./Elements"
 import "./App.css"
 import Menu from "./Menu"
 import { Modal } from "./Modal"
+import { Accordion } from "./Accordion"
 
 import blue from "./blue.png"
 import purp from "./purp.png"
@@ -16,10 +17,12 @@ function App() {
   const [show, toggle] = React.useState(false)
   return (
     <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
+      <Accordion />
+
       <Modal show={show} onClose={() => toggle(false)}>
         <Card style={{ background: "var(--green)" }}>
           <h3>Some card</h3>
-          <img src={green} />
+          <img alt="card" src={green} />
         </Card>
       </Modal>
       <Header>
@@ -51,15 +54,15 @@ function App() {
         <CardGrid>
           <Card style={{ background: "var(--purp)" }}>
             <h3>Some card</h3>
-            <img src={purp} />
+            <img alt="card" src={purp} />
           </Card>
           <Card style={{ background: "var(--blue)" }}>
             <h3>Some card</h3>
-            <img src={blue} />
+            <img alt="card" src={blue} />
           </Card>
           <Card style={{ background: "var(--black)" }}>
             <h3>Some card</h3>
-            <img src={black} />
+            <img alt="card" src={black} />
           </Card>
         </CardGrid>
       </Container>

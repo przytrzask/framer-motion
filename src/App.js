@@ -6,6 +6,7 @@ import "./App.css"
 import Menu from "./Menu"
 import { Modal } from "./Modal"
 import { Accordion } from "./Accordion"
+import { Nav } from "./Nav"
 
 import blue from "./blue.png"
 import purp from "./purp.png"
@@ -15,6 +16,9 @@ import green from "./green.png"
 function App() {
   const [value, setValue] = React.useState(0)
   const [show, toggle] = React.useState(false)
+
+  const [isNavOpen, setIsNavOpen] = React.useState(false)
+
   return (
     <motion.div
       initial={{
@@ -31,21 +35,13 @@ function App() {
         </Card>
       </Modal>
       <Header>
-        <Menu />
+        <Menu onClick={() => setIsNavOpen(true)} />
+        <Nav isNavOpen={isNavOpen} setIsNavOpen={setIsNavOpen} />
+
         <h1>Header</h1>
       </Header>
-      <Accordion />
       <Container>
-        <AnimatePresence exit="">
-          {show && (
-            <motion.h2
-              animate={{ opacity: 1, x: Number(value) }}
-              exit={{ opacity: 0 }}
-            >
-              Super Cool
-            </motion.h2>
-          )}
-        </AnimatePresence>
+        <motion.h2 animate={{ x: Number(value) }}>Super Cool</motion.h2>
         <input
           type="range"
           min="-100"
@@ -53,7 +49,10 @@ function App() {
           onChange={(evt) => setValue(evt.currentTarget.value)}
           value={value}
         />
-        <button onClick={() => toggle(true)}>Set Opacity</button>
+        <button onClick={() => toggle(true)}>Open Modal</button>
+
+        <Accordion />
+
         <CardGrid>
           <Card style={{ background: "var(--purp)" }}>
             <h3>Some card</h3>

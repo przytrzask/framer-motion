@@ -2,7 +2,6 @@ import React from "react"
 import { motion, AnimatePresence } from "framer-motion"
 
 export function Modal({ show = true, onClose, children }) {
-  console.log("here")
   return (
     <AnimatePresence>
       {show && (

@@ -18,6 +18,7 @@ import purp from "./purp.png"
 import black from "./black.png"
 import green from "./green.png"
 import { Squares } from "./Squares"
+import { Slideshow } from "./Slideshow"
 
 function App() {
   const [value, setValue] = React.useState(0)
@@ -51,6 +52,7 @@ function App() {
         <h1>Header</h1>
       </Header>
       <Container>
+        <Slideshow />
         <Squares />
         <motion.h2 animate={{ x: Number(value) }}>Super Cool</motion.h2>
         <input

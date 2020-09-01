@@ -1,6 +1,7 @@
 import React from "react"
 import styled from "styled-components"
 import { motion } from "framer-motion"
+import { Link } from "react-router-dom"
 
 const variants = {
   open: { x: 0 },
@@ -29,7 +30,7 @@ const linkVariants = {
   close: { y: 50, opacity: 0 },
 }
 
-const links = ["one", "two", "three", "four"]
+const links = ["routing", "/", "three", "four"]
 
 export function Nav({ isNavOpen, setIsNavOpen }) {
   return (
@@ -43,7 +44,7 @@ export function Nav({ isNavOpen, setIsNavOpen }) {
       <motion.ul variants={ulVariants}>
         {links.map((link) => (
           <motion.li variants={linkVariants} key={link}>
-            <a href="#">{link}</a>
+            <Link to={link}>{link}</Link>
           </motion.li>
         ))}
       </motion.ul>
